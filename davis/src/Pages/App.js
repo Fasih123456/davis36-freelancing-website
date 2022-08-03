@@ -1,15 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import screen1 from './screen1';
+import Record from './newrecord';
 
-
-import '../css/App.css';
 
 const App = () => {
   return(
       <div>
           <BrowserRouter>
             <React.Fragment>
-              <Route path="/" exact  component={home} />
+              <Route path="/products/" exact  component={screen1} />
+              <Route path="/product-add/" excat component={Record} />
             </React.Fragment>
           </BrowserRouter>
       </div>
@@ -17,3 +18,5 @@ const App = () => {
 };
 
 export default App;
+
+
