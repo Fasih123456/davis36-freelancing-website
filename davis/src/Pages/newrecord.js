@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios, { Axios } from 'axios';
+import { Redirect } from 'react-router';
 
 const Record = () => {
     const [name, setName] = useState("Davis");
@@ -21,7 +22,7 @@ const Record = () => {
             <label>Value</label>
             <input type="checkbox" value={value} onChange={(e) => setValue(e.target.value)} />
             < hr />
-            <button onClick={postData}>Submit</button>
+            <a href="/products"><button onClick={postData}>Submit</button></a>
         </form>
     )
 }
