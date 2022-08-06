@@ -8,14 +8,17 @@ const Record = () => {
 
     const postData = (e) => {
         e.preventDefault();
+        console.log(e);
         axios.post('https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product', {
             name: name,
             value: value
-        }).then(res => console.log('Posting data', res))
+        })
     }
 
     return (
+        
         <form>
+            
             <label>Name</label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
             < hr />

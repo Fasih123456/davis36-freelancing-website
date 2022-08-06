@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
+import { Link } from "react-router-dom";
+
+var data =[]
 
 function Screen2() {
   const [product, setProduct] = useState(null);
+
+
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -22,7 +27,23 @@ function Screen2() {
           </tr>
           {getValue(product)}
         </table>
-        <a href="node-add"><button>Add Record</button></a>
+
+        <Link
+        to={{
+          pathname: "/node-add",
+          state: data
+        }}
+        >
+        <button>Add Record</button>
+        </Link>
+        <Link
+        to={{
+          pathname: "/screen3",
+          state: data
+        }}
+        >
+        <button>Run Values</button>
+        </Link>
       </React.Fragment>
     );
   } else {
@@ -46,6 +67,8 @@ function getValue(products) {
   const arr1 = nodes.map((product) => {
       hashmap.set(product.id, product.name);
   })
+  data = hashmap;
+
 
   
 
