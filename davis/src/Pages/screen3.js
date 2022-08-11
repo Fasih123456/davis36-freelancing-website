@@ -26,17 +26,19 @@ function Screen3() {
 }*/
 
   if (connections) {
-    return <React.Fragment>
-      {getValue(connections)}
-      <Link
-        to={{
-          pathname: "/screen4",
-          state: data
-        }}
+    return (
+      <React.Fragment>
+        {getValue(connections)}
+        <Link
+          to={{
+            pathname: "/screen4",
+            state: data,
+          }}
         >
-        <button>Run Values</button>
+          <button>Run Values</button>
         </Link>
-      </React.Fragment>;
+      </React.Fragment>
+    );
   } else {
     return (
       <div>

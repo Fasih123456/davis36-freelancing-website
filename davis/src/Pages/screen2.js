@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
 
-var data =[]
+var data = [];
 
 function Screen2() {
-  const [connections, setConnections] = useState('');
-
-
+  const [connections, setConnections] = useState("");
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -31,20 +29,20 @@ function Screen2() {
         </table>
 
         <Link
-        to={{
-          pathname: "/node-add",
-          state: data
-        }}
+          to={{
+            pathname: "/node-add",
+            state: data,
+          }}
         >
-        <button>Add Connection</button>
+          <button>Add Connection</button>
         </Link>
         <Link
-        to={{
-          pathname: "/screen3",
-          state: data
-        }}
+          to={{
+            pathname: "/screen3",
+            state: data,
+          }}
         >
-        <button>Run Values</button>
+          <button>Run Values</button>
         </Link>
       </React.Fragment>
     );
@@ -61,18 +59,14 @@ function getValue(connections) {
   console.log(connections[0]);
   var hashmap = new Map();
 
-
   const newConnections = connections[0].edges;
   const nodes = connections[0].nodes;
   //console.log(nodes);
 
   const arr1 = nodes.map((connection) => {
-      hashmap.set(connection.id, connection.name);
-  })
+    hashmap.set(connection.id, connection.name);
+  });
   data = hashmap;
-
-
-  
 
   const arr = newConnections.map((connection) => {
     return (
