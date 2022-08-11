@@ -6,11 +6,11 @@ import Slider from "@mui/material/Slider";
 var data = [];
 
 function Screen3() {
-  const [product, setProduct] = useState(null);
+  const [connections, setConnections] = useState(null);
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
-      setProduct(response.data);
+      setConnections(response.data);
       console.log("here");
     });
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
@@ -25,9 +25,9 @@ function Screen3() {
     })
 }*/
 
-  if (product) {
+  if (connections) {
     return <React.Fragment>
-      {getValue(product)}
+      {getValue(connections)}
       <Link
         to={{
           pathname: "/screen4",
@@ -40,36 +40,36 @@ function Screen3() {
   } else {
     return (
       <div>
-        <h1>no products</h1>
+        <h1>No Connections</h1>
       </div>
     );
   }
 }
 
-function getValue(products) {
-  console.log(products[0]);
+function getValue(connections) {
+  console.log(connections[0]);
   var hashmap = new Map();
 
-  const newProducts = products[0].edges;
-  const nodes = products[0].nodes;
+  const newConnections = connections[0].edges;
+  const nodes = connections[0].nodes;
   //console.log(nodes);
 
-  const arr1 = nodes.map((product) => {
-    hashmap.set(product.id, product.name);
+  const arr1 = nodes.map((connection) => {
+    hashmap.set(connection.id, connection.name);
   });
   data = hashmap;
 
-  const arr = newProducts.map((product) => {
+  const arr = newConnections.map((connection) => {
     return (
       <React.Fragment>
         <div>
           <h3>
-            Node {hashmap.get(product.source)} To {hashmap.get(product.target)}
+            Node {hashmap.get(connection.source)} To {hashmap.get(connection.target)}
           </h3>
 
           <Slider
             size="small"
-            defaultValue={product.weight}
+            defaultValue={connection.weight}
             aria-label="Small"
             valueLabelDisplay="auto"
             min={0}

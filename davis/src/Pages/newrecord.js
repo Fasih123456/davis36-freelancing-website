@@ -13,7 +13,7 @@ const Record = () => {
             name: name,
             value: value
         })
-        window.location.replace('/screen1')
+        window.location.replace('/')
     }
 
     return (

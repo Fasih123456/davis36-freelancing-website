@@ -7,16 +7,16 @@ import { Link } from "react-router-dom";
 
 var data =[]
 function Screen1() {
-  const [product, setProduct] = useState(null);
+  const [model, newModel] = useState(null);
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
-      setProduct(response.data);
+      newModel(response.data);
       console.log("here");
     });
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
-  if (product) {
+  if (model) {
     return (
       <React.Fragment>
         <table class="table">
@@ -28,12 +28,12 @@ function Screen1() {
           </tr>
           </thead>
           <tbody>
-          {getValue(product)}
+          {getValue(model)}
           </tbody>
         </table>
         <Link
         to={{
-          pathname: "/product-add",
+          pathname: "/new-record",
           state: data
         }}
         >
@@ -48,19 +48,19 @@ function Screen1() {
   } else {
     return (
       <div>
-        <h1>no products</h1>
+        <h1>No Models</h1>
       </div>
     );
   }
 }
 
-function getValue(products) {
-  console.log(products);
-  const arr = products.map((product) => {
+function getValue(models) {
+  console.log(models);
+  const arr = models.map((model) => {
     return (
       <tr>
         <th scope="row">1</th>
-        <td>{product.name}</td>
+        <td>{model.name}</td>
         <td>
         <Link
         to={{

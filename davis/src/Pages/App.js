@@ -13,9 +13,9 @@ const App = () => {
       <div>
           <BrowserRouter>
             <React.Fragment>
-              <Route path="/screen1" excat component={Screen1} />
+              <Route path="/" exact component={Screen1} />
               <Route path="/screen2/" exact  component={Screen2} />
-              <Route path="/product-add/" exact component={Record} />
+              <Route path="/new-record/" exact component={Record} />
               <Route path="/node-add/" exact component={NodeAdd} />
               <Route path="/screen3/" exact component={Screen3} />
               <Route path="/screen4/" excat component={Screen4} />

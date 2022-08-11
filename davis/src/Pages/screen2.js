@@ -5,20 +5,20 @@ import { Link } from "react-router-dom";
 var data =[]
 
 function Screen2() {
-  const [product, setProduct] = useState(null);
+  const [connections, setConnections] = useState('');
 
 
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
-      setProduct(response.data);
+      setConnections(response.data);
       console.log("here");
     });
 
     //data = product;
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
-  if (product) {
+  if (connections) {
     return (
       <React.Fragment>
         <table>
@@ -27,7 +27,7 @@ function Screen2() {
             <th>Effect</th>
             <th>Weight</th>
           </tr>
-          {getValue(product)}
+          {getValue(connections)}
         </table>
 
         <Link
@@ -36,7 +36,7 @@ function Screen2() {
           state: data
         }}
         >
-        <button>Add Record</button>
+        <button>Add Connection</button>
         </Link>
         <Link
         to={{
@@ -51,35 +51,35 @@ function Screen2() {
   } else {
     return (
       <div>
-        <h1>no products</h1>
+        <h1>No Connections</h1>
       </div>
     );
   }
 }
 
-function getValue(products) {
-  console.log(products[0]);
+function getValue(connections) {
+  console.log(connections[0]);
   var hashmap = new Map();
 
 
-  const newProducts = products[0].edges;
-  const nodes = products[0].nodes;
+  const newConnections = connections[0].edges;
+  const nodes = connections[0].nodes;
   //console.log(nodes);
 
-  const arr1 = nodes.map((product) => {
-      hashmap.set(product.id, product.name);
+  const arr1 = nodes.map((connection) => {
+      hashmap.set(connection.id, connection.name);
   })
   data = hashmap;
 
 
   
 
-  const arr = newProducts.map((product) => {
+  const arr = newConnections.map((connection) => {
     return (
       <tr>
-        <td>{hashmap.get(product.source)}</td>
-        <td>{hashmap.get(product.target)}</td>
-        <td>{product.weight}</td>
+        <td>{hashmap.get(connection.source)}</td>
+        <td>{hashmap.get(connection.target)}</td>
+        <td>{connection.weight}</td>
       </tr>
     );
   });

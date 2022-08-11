@@ -64,11 +64,13 @@ function postData(event) {
         }
     })
 
+    console.log(checkOne, checkTwo);
 
 
 
     if(!checkOne && !checkTwo){
         //send post request
+        alert('Sucessfully added record');
     }else{
         newProduct.edges.map(n => {
             console.log(n);
