@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 
+import { Link } from "react-router-dom";
+
+var data =[]
 function Screen1() {
   const [product, setProduct] = useState(null);
 
@@ -14,13 +19,30 @@ function Screen1() {
   if (product) {
     return (
       <React.Fragment>
-        <table>
+        <table class="table">
+          <thead>
           <tr>
-            <th>Name</th>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Options</th>
           </tr>
+          </thead>
+          <tbody>
           {getValue(product)}
+          </tbody>
         </table>
-        <a href="product-add"><button>Add Record</button></a>
+        <Link
+        to={{
+          pathname: "/product-add",
+          state: data
+        }}
+        >
+        <FontAwesomeIcon icon="fa-solid fa-plus" size="2x"/>
+        </Link>
+
+
+
+
       </React.Fragment>
     );
   } else {
@@ -37,7 +59,21 @@ function getValue(products) {
   const arr = products.map((product) => {
     return (
       <tr>
+        <th scope="row">1</th>
         <td>{product.name}</td>
+        <td>
+        <Link
+        to={{
+          pathname: "/screen2",
+          state: data
+        }}
+        >
+         <button >View</button>
+        </Link>
+         
+        
+        
+        </td>
       </tr>
     );
   });
@@ -45,4 +81,6 @@ function getValue(products) {
   return arr;
 }
 
+
 export default Screen1;
+

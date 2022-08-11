@@ -13,6 +13,7 @@ const Record = () => {
             name: name,
             value: value
         })
+        window.location.replace('/screen1')
     }
 
     return (
@@ -25,7 +26,7 @@ const Record = () => {
             <label>Value</label>
             <input type="checkbox" value={value} onChange={(e) => setValue(e.target.value)} />
             < hr />
-            <a href="/products"><button onClick={postData}>Submit</button></a>
+            <button onClick={postData}>Submit</button>
         </form>
     )
 }

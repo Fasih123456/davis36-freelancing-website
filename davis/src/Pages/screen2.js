@@ -14,6 +14,8 @@ function Screen2() {
       setProduct(response.data);
       console.log("here");
     });
+
+    //data = product;
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
   if (product) {

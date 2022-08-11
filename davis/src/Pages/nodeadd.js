@@ -1,59 +1,118 @@
-import React, { useEffect, useState, Component } from 'react';
-import axios, { Axios } from 'axios';
-import { Redirect } from 'react-router';
 
-class NodeAdd extends Component{
-    constructor(){
-        super();
-        this.state = {
-            cause: "A",
-            effect: "B",
-            weight: 0,
-        };
-        this.onInputChange = this.onInputChange.bind(this);
-        this.onSubmitForm = this.onSubmitForm.bind(this);
-    }
+import React, { useEffect, useState } from "react";
+import axios, { Axios } from "axios";
+import { Link } from "react-router-dom";
 
-    onInputChange(event){
-        this.setState({
-            [event.target.name]: event.target.value
+var data =[]
+var hashmap = []
+
+
+function NodeAdd() {
+  const [product, setProduct] = useState('');
+  const [name, setName] = useState('');
+  const [value, setValue] = useState('');
+  const [weight, setWeight] = useState('1');
+
+
+
+  useEffect(() => {
+    axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
+      setProduct(response.data);
+      console.log("here");
+    });
+
+    data = product;
+  }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
+
+  
+    return (
+        <form>
+           
+
+            <label>Cause</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            < hr />
+            <label>Effect</label>
+            <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
+            < hr />
+            <label>Weight</label>
+            <input type="number" value={weight} onChange={(e) => setWeight(e.target.weight)} />
+            < hr />
+            
+            <a href="/products"><button onClick={postData}>Submit</button></a>
+        </form>
+    );
+  
+
+
+function postData(event) {
+    event.preventDefault();
+    var checkOne = false;
+    var checkTwo = false;
+
+
+    hashmap = getValue(product)
+    console.log(product[1])
+    
+    var newProduct = product[1];
+    newProduct.nodes.map(n => {
+        console.log(n.name)
+        if(n.name == name){
+            checkOne = true;
+        }else if(n.name == value){
+            checkTwo = true;
+        }
+    })
+
+
+
+
+    if(!checkOne && !checkTwo){
+        //send post request
+    }else{
+        newProduct.edges.map(n => {
+            console.log(n);
+            const newCause = hashmap.get(n.source);
+            const newEffect = hashmap.get(n.target);
+            console.log(newCause);
+            console.log(newEffect);
+    
+            if(newCause == name && newEffect == value){
+                alert('Duplicationsa are not allowed')
+            }
         })
-
-        
-        console.log(this.state);
-    }
-
-    onSubmitForm(event){
-        //this is a bit complex so we will do this later
     }
     
-    render(){
-        const hashMap = this.props.history.location.state;
-        console.log(hashMap);
-        
+    
 
-        return(
-            <form>
 
-            <label>Cause
-            <input name="cause" type="text" value={this.state.cause} onChange={this.onInputChange} />
-            </label>
-            < hr />
-            <label>Effect
-            <input name="effect" type="text" value={this.state.effect} onChange={this.onInputChange} />
-            </label>
-            < hr />
-            <label>Weight
-            <input name="weight" type="number" value={this.state.weight} onChange={this.onInputChange} />
-            </label>
-            < hr />
+    //if cause == nodes[0].name && effect == nodes[1].name 
 
-            
-
-            </form>
-        )
-    }
+    //if 
 }
+
+function getValue(products) {
+    //console.log(products[1].nodes);
+    var hashmap = new Map();
+  
+  
+    
+    const nodes = products[1].nodes;
+    //console.log(nodes);
+
+    const arr1 = nodes.map((product) => {
+        hashmap.set(product.id, product.name);
+    })
+
+  
+  //console.log(hashmap)
+    
+  
+    return hashmap;
+  }
+}
+export default NodeAdd;
+
 
 /*
 const NodeAdd = () => {
@@ -110,4 +169,3 @@ const NodeAdd = () => {
     )
 }*/
 
-export default NodeAdd;

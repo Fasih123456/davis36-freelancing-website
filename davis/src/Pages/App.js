@@ -1,18 +1,20 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import screen1 from './screen1';
+import Screen1 from './screen1';
 import Record from './newrecord';
 import Screen2 from './screen2';
 import NodeAdd from './nodeadd';
 import Screen3 from './screen3';
 import Screen4 from './screen4';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const App = () => {
   return(
       <div>
           <BrowserRouter>
             <React.Fragment>
-              <Route path="/products/" exact  component={Screen2} />
+              <Route path="/screen1" excat component={Screen1} />
+              <Route path="/screen2/" exact  component={Screen2} />
               <Route path="/product-add/" exact component={Record} />
               <Route path="/node-add/" exact component={NodeAdd} />
               <Route path="/screen3/" exact component={Screen3} />

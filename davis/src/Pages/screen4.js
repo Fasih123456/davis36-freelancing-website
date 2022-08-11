@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
-import Slider from "@mui/material/Slider";
 
-var data = [];
+var data =[]
 
 function Screen4() {
   const [product, setProduct] = useState(null);
+
+
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -16,17 +17,31 @@ function Screen4() {
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
   if (product) {
-    return <React.Fragment>
-      {getValue(product)}
-      <Link
+    return (
+      <React.Fragment>
+        <table>
+          <tr>
+            <th>Node</th>
+            <th>Weight</th>
+          </tr>
+          {getValue(product)}
+        </table>
+
+        <form>
+        <label for="analysis">Analysis:</label><br />
+  <input type="textbox" id="fname" name="fname" value="Node A TO B has an average impact" disabled style={{width: "500px"}} />
+        </form>
+
+        <Link
         to={{
-          pathname: "/screen4",
+          pathname: "/screen1",
           state: data
         }}
         >
-        <button>Run Values</button>
+        <button>Home</button>
         </Link>
-      </React.Fragment>;
+      </React.Fragment>
+    );
   } else {
     return (
       <div>
@@ -40,34 +55,26 @@ function getValue(products) {
   console.log(products[0]);
   var hashmap = new Map();
 
+
   const newProducts = products[0].edges;
   const nodes = products[0].nodes;
   //console.log(nodes);
 
   const arr1 = nodes.map((product) => {
-    hashmap.set(product.id, product.name);
-  });
+      hashmap.set(product.id, product.name);
+  })
   data = hashmap;
+
+
+  
 
   const arr = newProducts.map((product) => {
     return (
-      <React.Fragment>
-        <div>
-          <h3>
-            Node {hashmap.get(product.source)} To {hashmap.get(product.target)}
-          </h3>
+      <tr>
+        <td>{hashmap.get(product.source)} TO {hashmap.get(product.target)}</td>
 
-          <Slider
-            size="small"
-            defaultValue={product.weight}
-            aria-label="Small"
-            valueLabelDisplay="auto"
-            min={0}
-            max={1}
-            step={0.01}
-          />
-        </div>
-      </React.Fragment>
+        <td>{product.weight}</td>
+      </tr>
     );
   });
 

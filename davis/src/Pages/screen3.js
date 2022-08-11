@@ -15,6 +15,7 @@ function Screen3() {
     });
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
+  /*
   const postData = (e) => {
     e.preventDefault();
     console.log(e);
@@ -22,7 +23,7 @@ function Screen3() {
         name: name,
         value: value
     })
-}
+}*/
 
   if (product) {
     return <React.Fragment>
