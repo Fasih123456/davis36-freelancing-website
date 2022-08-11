@@ -20,17 +20,22 @@ function Screen1() {
     return (
       <React.Fragment>
         <table class="table">
-          <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Options</th>
-          </tr>
-          </thead>
+        <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Options</th>
+
+    </tr>
+  </thead>
           <tbody>
           {getValue(model)}
           </tbody>
         </table>
+
+        <table class="table">
+</table>
+
         <Link
         to={{
           pathname: "/new-record",
