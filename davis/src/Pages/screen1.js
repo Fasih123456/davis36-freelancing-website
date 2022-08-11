@@ -19,6 +19,7 @@ function Screen1() {
   if (model) {
     return (
       <React.Fragment>
+        <h3 style={{backgroundColor: "#212529", color: "white", marginBottom: "0px"}}>Models </h3>
         <table class="table">
           <thead class="thead-dark">
             <tr>

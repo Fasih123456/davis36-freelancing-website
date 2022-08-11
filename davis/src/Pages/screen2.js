@@ -19,15 +19,20 @@ function Screen2() {
   if (connections) {
     return (
       <React.Fragment>
-        <table>
-          <tr>
-            <th>Cause</th>
-            <th>Effect</th>
-            <th>Weight</th>
-          </tr>
+        <h3 style={{backgroundColor: "#212529", color: "white", marginBottom: "0px"}}>M1: Runner </h3>
+
+
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Cause</th>
+              <th scope="col">Effect</th>
+
+            </tr>
+          </thead>
           {getValue(connections)}
         </table>
-
         <Link
           to={{
             pathname: "/node-add",

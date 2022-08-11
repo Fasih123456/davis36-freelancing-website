@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
 import Slider from "@mui/material/Slider";
+import Card from 'react-bootstrap/Card';
 
 var data = [];
 
@@ -64,12 +65,21 @@ function getValue(connections) {
   const arr = newConnections.map((connection) => {
     return (
       <React.Fragment>
-        <div>
-          <h3>
-            Node {hashmap.get(connection.source)} To {hashmap.get(connection.target)}
-          </h3>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">M1: Runner</th>
 
-          <Slider
+
+            </tr>
+          </thead>
+
+        </table>
+<Card border="primary" style={{ width: '80%', marginLeft: "10%", marginRight: "10%" }}>
+
+        <Card.Header>Node {hashmap.get(connection.source)} To {hashmap.get(connection.target)}</Card.Header>
+        <Card.Body>
+        <Slider
             size="small"
             defaultValue={connection.weight}
             aria-label="Small"
@@ -78,6 +88,15 @@ function getValue(connections) {
             max={1}
             step={0.01}
           />
+        </Card.Body>
+      </Card>
+        
+        <div>
+          <h3>
+            
+          </h3>
+
+
         </div>
       </React.Fragment>
     );

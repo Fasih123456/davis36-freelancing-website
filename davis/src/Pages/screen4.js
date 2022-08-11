@@ -17,11 +17,15 @@ function Screen4() {
   if (connections) {
     return (
       <React.Fragment>
-        <table>
-          <tr>
-            <th>Node</th>
-            <th>Weight</th>
-          </tr>
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Node From</th>
+              <th scope="col">Node To</th>
+              <th scope="col">Weight</th>
+            </tr>
+          </thead>
           {getValue(connections)}
         </table>
 
@@ -82,9 +86,13 @@ function getValue(connections) {
     console.log(hashmap)
     return (
       <tr>
+        <td>1</td>
         <td>
-          {hashmap.get(connection.source)} TO {hashmap.get(connection.target)}
+          {hashmap.get(connection.source)} TO 
         </td>
+        <td>
+        {hashmap.get(connection.target)}
+          </td>
 
         <td>{connection.weight}</td>
       </tr>
