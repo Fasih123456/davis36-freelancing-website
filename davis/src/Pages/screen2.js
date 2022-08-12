@@ -28,6 +28,7 @@ function Screen2() {
               <th scope="col">#</th>
               <th scope="col">Cause</th>
               <th scope="col">Effect</th>
+              <th scope="col">Weight</th>
 
             </tr>
           </thead>
@@ -76,6 +77,7 @@ function getValue(connections) {
   const arr = newConnections.map((connection) => {
     return (
       <tr>
+        <td>1</td>
         <td>{hashmap.get(connection.source)}</td>
         <td>{hashmap.get(connection.target)}</td>
         <td>{connection.weight}</td>
