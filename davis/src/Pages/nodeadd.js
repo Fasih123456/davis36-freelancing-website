@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 var data = [];
 var hashmap = [];
 
 function NodeAdd() {
-  const [product, setProduct] = useState("");
-  const [name, setName] = useState("");
-  const [value, setValue] = useState("");
+  const [product, setProduct] = useState();
+  const [name, setName] = useState("A");
+  const [value, setValue] = useState("B");
   const [weight, setWeight] = useState("1");
+  const location = useLocation();
+  const locationdata = location.state;
+  console.log(locationdata)
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -24,27 +28,28 @@ function NodeAdd() {
     <form>
       <label>Cause</label>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+
       <hr />
       <label>Effect</label>
       <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
       <hr />
       <label>Weight</label>
-      <input type="number" value={weight} onChange={(e) => setWeight(e.target.weight)} />
+      <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} />
       <hr />
 
-      <a href="/products">
-        <button onClick={postData}>Submit</button>
-      </a>
+      
+        <button onClick={postDataCheck}>Submit</button>
+      
     </form>
   );
 
-  function postData(event) {
+  function postDataCheck(event) {
     event.preventDefault();
     var checkOne = false;
     var checkTwo = false;
 
     hashmap = getValue(product);
-    console.log(product[1]);
+    console.log(data)
 
     var newProduct = product[1];
     newProduct.nodes.map((n) => {
@@ -57,10 +62,11 @@ function NodeAdd() {
     });
 
     console.log(checkOne, checkTwo);
+    console.log(name);
+    console.log(weight)
 
     if (!checkOne && !checkTwo) {
-      //send post request
-      alert("Sucessfully added record");
+        postData();
     } else {
       newProduct.edges.map((n) => {
         console.log(n);
@@ -71,13 +77,40 @@ function NodeAdd() {
 
         if (newCause == name && newEffect == value) {
           alert("Duplicationsa are not allowed");
+        }else{
+            postData()
         }
       });
     }
+  }
+  
+  function postData(){
 
-    //if cause == nodes[0].name && effect == nodes[1].name
+      alert("Sucessfully added record");
 
-    //if
+      axios.post('https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product', {
+      
+          "nodes": [
+            {
+              "id": "2",
+              "name": name
+            },
+            {
+              "id": "3",
+              "name": value
+            }
+          ],
+          "edges": [
+            {
+              "source": "2",
+              "target": "3",
+              "weight": weight
+            }
+          ],
+          "id": "1"
+        
+          }).then(res => console.log('Posting data', res))
+        
   }
 
   function getValue(products) {

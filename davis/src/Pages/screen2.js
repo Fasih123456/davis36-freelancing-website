@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
-
+import { useLocation } from 'react-router-dom';
 var data = [];
 
 function Screen2() {
+
+  const location = useLocation();
+  const locationdata = location.state;
+  console.log(locationdata)
+
   const [connections, setConnections] = useState("");
 
   useEffect(() => {
@@ -17,6 +22,8 @@ function Screen2() {
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
   if (connections) {
+
+    
     return (
       <React.Fragment>
         <h3 style={{backgroundColor: "#212529", color: "white", marginBottom: "0px"}}>M1: Runner </h3>
@@ -37,7 +44,7 @@ function Screen2() {
         <Link
           to={{
             pathname: "/node-add",
-            state: data,
+            state: locationdata,
           }}
         >
           <button>Add Connection</button>
