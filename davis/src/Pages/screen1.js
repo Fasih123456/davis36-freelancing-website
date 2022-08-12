@@ -53,8 +53,11 @@ function Screen1() {
 }
 
 function getValue(models) {
-  console.log(models);
+  console.log(models[0]);
+  var i = 0;
   const arr = models.map((model) => {
+
+
     return (
       <tr>
         <th scope="row">1</th>
@@ -63,7 +66,7 @@ function getValue(models) {
           <Link
             to={{
               pathname: "/screen2",
-              state: data,
+              state: models[i],
             }}
           >
             <button>View</button>
@@ -71,6 +74,8 @@ function getValue(models) {
         </td>
       </tr>
     );
+
+    i++;
   });
 
   return arr;
