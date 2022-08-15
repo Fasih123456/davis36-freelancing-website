@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
-
+import { useLocation } from "react-router-dom";
 
 var hashmap = [];
 
@@ -23,8 +22,6 @@ function NodeAdd() {
       setProduct(response.data);
       //console.log("here");
     });
-
-
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
   return (
@@ -40,9 +37,7 @@ function NodeAdd() {
       <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} />
       <hr />
 
-      
-        <button onClick={postDataCheck}>Submit</button>
-      
+      <button onClick={postDataCheck}>Submit</button>
     </form>
   );
 
@@ -53,16 +48,15 @@ function NodeAdd() {
 
     hashmap = getValue(product);
 
-
     var newProduct = product[1];
-    console.log(newProduct)
+    console.log(newProduct);
 
     //making sure there is no duplications
     newProduct.nodes.map((n) => {
       console.log(n);
-      if (n.name == name) { 
+      if (n.name == name) {
         causeExist = true;
-      } else if (n.name == value) { 
+      } else if (n.name == value) {
         effectExist = true;
       }
     });
@@ -72,7 +66,7 @@ function NodeAdd() {
     //console.log(weight)
 
     if (!causeExist && !effectExist) {
-        postData();
+      postData();
     } else {
       newProduct.edges.map((n) => {
         //console.log(n);
@@ -83,40 +77,38 @@ function NodeAdd() {
 
         if (newCause == name && newEffect == value) {
           alert("Duplicationsa are not allowed");
-        }else{
-            postData()
+        } else {
+          postData();
         }
       });
     }
   }
-  
-  function postData(){
 
-      alert("Sucessfully added record");
+  function postData() {
+    alert("Sucessfully added record");
 
-      axios.post('https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product', {
-      
-          "nodes": [
-            {
-              "id": "2",
-              "name": name
-            },
-            {
-              "id": "3",
-              "name": value
-            }
-          ],
-          "edges": [
-            {
-              "source": "2",
-              "target": "3",
-              "weight": weight
-            }
-          ],
-          "id": "25"
-        
-          }).then(res => console.log('Posting data', res))
-        
+    axios
+      .post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
+        nodes: [
+          {
+            id: "2",
+            name: name,
+          },
+          {
+            id: "3",
+            name: value,
+          },
+        ],
+        edges: [
+          {
+            source: "2",
+            target: "3",
+            weight: weight,
+          },
+        ],
+        id: "25",
+      })
+      .then((res) => console.log("Posting data", res));
   }
 
   function getValue(products) {
@@ -125,8 +117,6 @@ function NodeAdd() {
 
     const nodes = products[1].nodes;
     //console.log(nodes);
-
-
 
     //console.log(hashmap)
 

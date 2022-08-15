@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 var data = [];
 
 function Screen4() {
-  const [connections, setConnections] = useState('');
+  const [connections, setConnections] = useState("");
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -73,13 +73,9 @@ function getValue(connections) {
     hashmap.set(connection.id, connection.name);
   });
 
-
-
   //console.log(newConnections.source);
 
   data = hashmap;
-
-
 
   const arr = newConnections.map((connection) => {
     //console.log(connection.source)
@@ -87,12 +83,8 @@ function getValue(connections) {
     return (
       <tr>
         <td>1</td>
-        <td>
-          {hashmap.get(connection.source)} TO 
-        </td>
-        <td>
-        {hashmap.get(connection.target)}
-          </td>
+        <td>{hashmap.get(connection.source)} TO</td>
+        <td>{hashmap.get(connection.target)}</td>
 
         <td>{connection.weight}</td>
       </tr>

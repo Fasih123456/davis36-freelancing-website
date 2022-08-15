@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 var data = [];
 
 const Screen2 = (props) => {
-
   const location = useLocation();
   const state = location.state;
   //console.log(state)
@@ -22,13 +21,12 @@ const Screen2 = (props) => {
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
   if (connections) {
-
-    
     return (
       <React.Fragment>
         {state.models}
-        <h3 style={{backgroundColor: "#212529", color: "white", marginBottom: "0px"}}>M1: Runner </h3>
-
+        <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
+          M1: Runner{" "}
+        </h3>
 
         <table class="table">
           <thead class="thead-dark">
@@ -37,7 +35,6 @@ const Screen2 = (props) => {
               <th scope="col">Cause</th>
               <th scope="col">Effect</th>
               <th scope="col">Weight</th>
-
             </tr>
           </thead>
           {getValue(connections)}
@@ -67,7 +64,7 @@ const Screen2 = (props) => {
       </div>
     );
   }
-}
+};
 
 //printing all the connections to the screen
 function getValue(connections) {

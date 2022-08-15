@@ -6,7 +6,7 @@ const Record = () => {
   const [name, setName] = useState("Davis");
   const [value, setValue] = useState(false);
 
-  //this is the request which will be sent to the API to post all requests 
+  //this is the request which will be sent to the API to post all requests
   const postData = (e) => {
     e.preventDefault();
     //console.log(e);

@@ -20,7 +20,7 @@ function Screen1() {
   if (model) {
     return (
       <React.Fragment>
-        <h3 style={{backgroundColor: "#212529", color: "white", marginBottom: "0px"}}>Models </h3>
+        <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>Models </h3>
         <table class="table">
           <thead class="thead-dark">
             <tr>
@@ -58,6 +58,9 @@ function getValue(models) {
   //console.log(models);
   var i = 0;
   const arr = models.map((model) => {
+    {
+      i++;
+    }
     return (
       <tr>
         <th scope="row">1</th>
@@ -69,15 +72,11 @@ function getValue(models) {
               state: models[i],
             }}
           >
-
-            {  i++}
             <button>View</button>
           </Link>
         </td>
       </tr>
     );
-
-  
   });
 
   return arr;
