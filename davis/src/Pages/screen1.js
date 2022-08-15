@@ -11,11 +11,11 @@ function Screen1() {
 
   //This function gets relevent information from API, it fetchs data everytime infomartion in API changes
   useEffect(() => {
-    axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
+    axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/screen1").then((response) => {
       newModel(response.data);
       //console.log("here");
     });
-  }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
+  }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/screen1"]);
 
   if (model) {
     return (
@@ -37,11 +37,12 @@ function Screen1() {
         <Link
           to={{
             pathname: "/new-record",
-            state: data,
+            state: model,
           }}
         >
           <FontAwesomeIcon icon="fa-solid fa-plus" size="2x" />
         </Link>
+        
       </React.Fragment>
     );
   } else {
@@ -51,35 +52,54 @@ function Screen1() {
       </div>
     );
   }
-}
+
 
 //displaying all models on the webpage
 function getValue(models) {
-  //console.log(models);
-  var i = 0;
+  
+  var i = -1;
   const arr = models.map((model) => {
+
     {
       i++;
     }
     return (
-      <tr>
+      <tr id={model.id}>
         <th scope="row">1</th>
         <td>{model.name}</td>
-        <td>
+        <td >
+          
           <Link
             to={{
               pathname: "/screen2",
-              state: models[i],
+              state: {model},
             }}
           >
             <button>View</button>
           </Link>
+          <button onClick={() => deleteModel(model.id)} >Delete</button>
         </td>
       </tr>
     );
   });
 
   return arr;
+}
+
+function deleteModel(modelId) {
+  let modelDiv;
+  axios
+    .delete(`https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/screen1/${modelId}`)
+    .then((res) => console.log(res))
+    .then(
+      modelDiv= document.getElementById(modelId).remove()
+
+    )
+
+
+      
+
+}
 }
 
 export default Screen1;

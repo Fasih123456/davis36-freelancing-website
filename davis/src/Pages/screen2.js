@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 var data = [];
 
+
 const Screen2 = (props) => {
   const location = useLocation();
   const state = location.state;
-  //console.log(state)
+  console.log(state)
 
   const [connections, setConnections] = useState("");
 
@@ -22,8 +23,9 @@ const Screen2 = (props) => {
 
   if (connections) {
     return (
+
       <React.Fragment>
-        {state.models}
+
         <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
           M1: Runner{" "}
         </h3>
@@ -64,18 +66,69 @@ const Screen2 = (props) => {
       </div>
     );
   }
-};
+
 
 //printing all the connections to the screen
 function getValue(connections) {
   //console.log(connections);
   var hashmap = new Map();
 
+
+  //console.log(connections)
+
+  connections.map((c) => {
+
+    const stateId = Number(state.model.id)
+    //console.log(c.associateId, stateId)
+
+    if(c.associateId == stateId){
+      for(let i = 0;i < c.nodes.length;i++){
+        let currentObject = c.nodes[i];
+        hashmap.set(currentObject.id,currentObject.name);
+      }
+    }
+
+
+
+
+
+
+
+
+    
+    /*if(c.associateId == state.id){
+      
+    }*/
+  })
+
+  const arr = connections.map((c) => {
+    console.log(c.edges);
+    const stateId = Number(state.model.id)
+    if(c.associateId == stateId){
+    for(let i = 0;i < c.edges.length;i++){
+      let currentObject = c.edges[i];
+      console.log(currentObject.source)
+
+      return (<tr>
+        
+      <td>1</td>
+      <td>{hashmap.get(currentObject.source)}</td>
+      <td>{hashmap.get(currentObject.target)}</td>
+      <td>{currentObject.weight}</td>
+    </tr>)
+    }
+  }
+  })
+
+  console.log(hashmap)
+
+  /*
   const newConnections = connections[0].edges;
   const nodes = connections[0].nodes;
   //console.log(nodes);
 
   const arr1 = nodes.map((connection) => {
+
     hashmap.set(connection.id, connection.name);
   });
   data = hashmap;
@@ -83,15 +136,20 @@ function getValue(connections) {
   const arr = newConnections.map((connection) => {
     return (
       <tr>
+        
         <td>1</td>
         <td>{hashmap.get(connection.source)}</td>
         <td>{hashmap.get(connection.target)}</td>
         <td>{connection.weight}</td>
       </tr>
     );
-  });
+  });*/
 
   return arr;
 }
+};
 
 export default Screen2;
+
+
+

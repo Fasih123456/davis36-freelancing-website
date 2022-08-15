@@ -12,6 +12,7 @@ function NodeAdd() {
   const [value, setValue] = useState("B");
   const [weight, setWeight] = useState("1");
 
+
   const location = useLocation();
   const locationdata = location.state;
   //console.log(locationdata)
@@ -26,6 +27,7 @@ function NodeAdd() {
 
   return (
     <form>
+      {    console.log(locationdata.model.id)}
       <label>Cause</label>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
@@ -43,6 +45,7 @@ function NodeAdd() {
 
   function postDataCheck(event) {
     event.preventDefault();
+
     var causeExist = false; //this boolean checks weather they cause value exists in the API already or not
     var effectExist = false; //this boolean checks weather they effect value exists in the API already or not
 
@@ -106,7 +109,7 @@ function NodeAdd() {
             weight: weight,
           },
         ],
-        id: "25",
+        "associateId": Number(locationdata.model.id),
       })
       .then((res) => console.log("Posting data", res));
   }
