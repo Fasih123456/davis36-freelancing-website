@@ -49,6 +49,7 @@ function Screen3() {
   }
 }
 
+//getting all values on the screen
 function getValue(connections) {
   console.log(connections[0]);
   var hashmap = new Map();

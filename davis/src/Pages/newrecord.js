@@ -6,9 +6,10 @@ const Record = () => {
   const [name, setName] = useState("Davis");
   const [value, setValue] = useState(false);
 
+  //this is the request which will be sent to the API to post all requests 
   const postData = (e) => {
     e.preventDefault();
-    console.log(e);
+    //console.log(e);
     axios.post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
       name: name,
       value: value,

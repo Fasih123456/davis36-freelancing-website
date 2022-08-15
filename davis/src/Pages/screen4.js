@@ -10,7 +10,7 @@ function Screen4() {
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
       setConnections(response.data);
-      console.log("here");
+      //console.log("here");
     });
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
@@ -62,7 +62,7 @@ function Screen4() {
 }
 
 function getValue(connections) {
-  console.log(connections[0]);
+  //console.log(connections[0]);
   var hashmap = new Map();
 
   const newConnections = connections[0].edges;
@@ -75,15 +75,15 @@ function getValue(connections) {
 
 
 
-  console.log(newConnections.source);
+  //console.log(newConnections.source);
 
   data = hashmap;
 
 
 
   const arr = newConnections.map((connection) => {
-    console.log(connection.source)
-    console.log(hashmap)
+    //console.log(connection.source)
+    //console.log(hashmap)
     return (
       <tr>
         <td>1</td>

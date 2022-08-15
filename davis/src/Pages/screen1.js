@@ -9,10 +9,11 @@ var data = [];
 function Screen1() {
   const [model, newModel] = useState(null);
 
+  //This function gets relevent information from API, it fetchs data everytime infomartion in API changes
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
       newModel(response.data);
-      console.log("here");
+      //console.log("here");
     });
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
@@ -52,12 +53,11 @@ function Screen1() {
   }
 }
 
+//displaying all models on the webpage
 function getValue(models) {
-  console.log(models[0]);
+  //console.log(models);
   var i = 0;
   const arr = models.map((model) => {
-
-
     return (
       <tr>
         <th scope="row">1</th>
@@ -69,13 +69,15 @@ function getValue(models) {
               state: models[i],
             }}
           >
+
+            {  i++}
             <button>View</button>
           </Link>
         </td>
       </tr>
     );
 
-    i++;
+  
   });
 
   return arr;

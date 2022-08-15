@@ -8,6 +8,7 @@ import Screen3 from './screen3';
 import Screen4 from './screen4';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+//This page handles displaying all the pages on the correct link
 const App = () => {
   return(
       <div>

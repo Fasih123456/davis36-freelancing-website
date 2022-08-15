@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 var data = [];
 
-function Screen2() {
+const Screen2 = (props) => {
 
   const location = useLocation();
-  const locationdata = location.state;
-  console.log(locationdata)
+  const state = location.state;
+  //console.log(state)
 
   const [connections, setConnections] = useState("");
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
       setConnections(response.data);
-      console.log("here");
+      //console.log("here");
     });
 
     //data = product;
@@ -26,6 +26,7 @@ function Screen2() {
     
     return (
       <React.Fragment>
+        {state.models}
         <h3 style={{backgroundColor: "#212529", color: "white", marginBottom: "0px"}}>M1: Runner </h3>
 
 
@@ -44,7 +45,7 @@ function Screen2() {
         <Link
           to={{
             pathname: "/node-add",
-            state: locationdata,
+            state: state,
           }}
         >
           <button>Add Connection</button>
@@ -68,8 +69,9 @@ function Screen2() {
   }
 }
 
+//printing all the connections to the screen
 function getValue(connections) {
-  console.log(connections[0]);
+  //console.log(connections);
   var hashmap = new Map();
 
   const newConnections = connections[0].edges;
