@@ -8,9 +8,10 @@ var hashmap = [];
 //This page handles adding nodes to each model
 function NodeAdd() {
   const [product, setProduct] = useState();
-  const [name, setName] = useState("A");
-  const [value, setValue] = useState("B");
-  const [weight, setWeight] = useState("1");
+  const [name, setName] = useState("");
+  const [value, setValue] = useState("");
+  const [weight, setWeight] = useState("");
+  const [isSending, setIsSending] = useState(false)
 
 
   const location = useLocation();
@@ -23,11 +24,11 @@ function NodeAdd() {
       setProduct(response.data);
       //console.log("here");
     });
-  }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
+  }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"], [isSending]);
 
   return (
     <form>
-      {    console.log(locationdata.model.id)}
+
       <label>Cause</label>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
@@ -44,6 +45,7 @@ function NodeAdd() {
   );
 
   function postDataCheck(event) {
+    setIsSending(true);
     event.preventDefault();
 
     var causeExist = false; //this boolean checks weather they cause value exists in the API already or not
@@ -51,26 +53,55 @@ function NodeAdd() {
 
     hashmap = getValue(product);
 
-    var newProduct = product[1];
-    console.log(newProduct);
+    var newProduct = product;
+    //console.log(newProduct)
 
     //making sure there is no duplications
-    newProduct.nodes.map((n) => {
-      console.log(n);
-      if (n.name == name) {
-        causeExist = true;
-      } else if (n.name == value) {
-        effectExist = true;
-      }
-    });
+    if(product.length > 0){
+      newProduct.map((n) => {
+        if(locationdata.model.id == n.associateId){
+          //console.log(n.nodes)
+          for(let i = 0;i < n.nodes.length;i++){
+            if(causeExist && effectExist){
+              break;
+            }else{
+              causeExist = false;
+              effectExist = false;
+            }
+
+
+            let currentObject = n.nodes[i];
+            //console.log(currentObject, name)
+            if(currentObject.name == name){
+              causeExist = true;
+            }else if(currentObject.name == value){
+              effectExist = true;
+            }
+          }
+        }
+      })
+
+      /*newProduct.nodes.map((n) => {
+        console.log(n);
+        if (n.name == name) {
+          causeExist = true;
+        } else if (n.name == value) {
+          effectExist = true;
+        }
+      });*/
+    }
+
+    //console.log(causeExist, effectExist)
+
 
     //console.log(checkOne, checkTwo);
     //console.log(name);
     //console.log(weight)
 
-    if (!causeExist && !effectExist) {
+    /*if (!causeExist && !effectExist) {
       postData();
     } else {
+      const alreadyPosted = false;
       newProduct.edges.map((n) => {
         //console.log(n);
         const newCause = hashmap.get(n.source);
@@ -80,45 +111,58 @@ function NodeAdd() {
 
         if (newCause == name && newEffect == value) {
           alert("Duplicationsa are not allowed");
-        } else {
+        } else if(!alreadyPosted){
           postData();
+          alreadyPosted = true;
         }
       });
+    }*/
+
+    if(!causeExist && !effectExist){
+      postData();
+    }else{
+      alert('Duplications are not allowed')
     }
   }
 
   function postData() {
+    setIsSending(true);
     alert("Sucessfully added record");
+    const id1 = Math.random() * 100000;
+    const id2 = Math.random() * 100000;
 
     axios
       .post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
         nodes: [
           {
-            id: "2",
+            id: id1,
             name: name,
           },
           {
-            id: "3",
+            id: id2,
             name: value,
           },
         ],
         edges: [
           {
-            source: "2",
-            target: "3",
+            source: id1,
+            target: id2,
             weight: weight,
           },
         ],
         "associateId": Number(locationdata.model.id),
       })
-      .then((res) => console.log("Posting data", res));
+      .then((res) => console.log("Posting data", res))
+      
+      //console.log('here')
+      setIsSending(false)
   }
 
   function getValue(products) {
     //console.log(products[1].nodes);
     var hashmap = new Map();
 
-    const nodes = products[1].nodes;
+
     //console.log(nodes);
 
     //console.log(hashmap)

@@ -11,15 +11,17 @@ function Screen1() {
 
   //This function gets relevent information from API, it fetchs data everytime infomartion in API changes
   useEffect(() => {
+    console.log("here");
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/screen1").then((response) => {
       newModel(response.data);
-      //console.log("here");
+      
     });
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/screen1"]);
 
   if (model) {
     return (
       <React.Fragment>
+        {console.log(model)}
         <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>Models </h3>
         <table class="table">
           <thead class="thead-dark">

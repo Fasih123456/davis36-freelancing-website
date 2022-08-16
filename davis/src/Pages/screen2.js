@@ -3,6 +3,8 @@ import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 var data = [];
+var screen3Data = [];
+var isPushed = false;
 
 
 const Screen2 = (props) => {
@@ -10,7 +12,12 @@ const Screen2 = (props) => {
   const state = location.state;
   console.log(state)
 
+
   const [connections, setConnections] = useState("");
+
+  const stateId = Number(state.model.id)
+  const screen3Data = [stateId, connections]
+
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -18,10 +25,17 @@ const Screen2 = (props) => {
       //console.log("here");
     });
 
+
     //data = product;
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
   if (connections) {
+
+    
+  
+
+
+
     return (
 
       <React.Fragment>
@@ -52,7 +66,7 @@ const Screen2 = (props) => {
         <Link
           to={{
             pathname: "/screen3",
-            state: data,
+            state: screen3Data,
           }}
         >
           <button>Run Values</button>
@@ -101,9 +115,11 @@ function getValue(connections) {
     }*/
   })
 
+
   const arr = connections.map((c) => {
     console.log(c.edges);
     const stateId = Number(state.model.id)
+    screen3Data.push(stateId)
     if(c.associateId == stateId){
     for(let i = 0;i < c.edges.length;i++){
       let currentObject = c.edges[i];
