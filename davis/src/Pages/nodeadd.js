@@ -11,24 +11,26 @@ function NodeAdd() {
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [weight, setWeight] = useState("");
-  const [isSending, setIsSending] = useState(false)
-
+  const [isSending, setIsSending] = useState(false);
 
   const location = useLocation();
   const locationdata = location.state;
   //console.log(locationdata)
 
   //This function gets relevent information from API, it fetchs data everytime infomartion in API changes
-  useEffect(() => {
-    axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
-      setProduct(response.data);
-      //console.log("here");
-    });
-  }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"], [isSending]);
+  useEffect(
+    () => {
+      axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
+        setProduct(response.data);
+        //console.log("here");
+      });
+    },
+    ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"],
+    [isSending]
+  );
 
   return (
     <form>
-
       <label>Cause</label>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
@@ -57,71 +59,34 @@ function NodeAdd() {
     //console.log(newProduct)
 
     //making sure there is no duplications
-    if(product.length > 0){
+    if (product.length > 0) {
       newProduct.map((n) => {
-        if(locationdata.model.id == n.associateId){
+        if (locationdata.model.id == n.associateId) {
           //console.log(n.nodes)
-          for(let i = 0;i < n.nodes.length;i++){
-            if(causeExist && effectExist){
+          for (let i = 0; i < n.nodes.length; i++) {
+            if (causeExist && effectExist) {
               break;
-            }else{
+            } else {
               causeExist = false;
               effectExist = false;
             }
 
-
             let currentObject = n.nodes[i];
             //console.log(currentObject, name)
-            if(currentObject.name == name){
+            if (currentObject.name == name) {
               causeExist = true;
-            }else if(currentObject.name == value){
+            } else if (currentObject.name == value) {
               effectExist = true;
             }
           }
         }
-      })
-
-      /*newProduct.nodes.map((n) => {
-        console.log(n);
-        if (n.name == name) {
-          causeExist = true;
-        } else if (n.name == value) {
-          effectExist = true;
-        }
-      });*/
+      });
     }
 
-    //console.log(causeExist, effectExist)
-
-
-    //console.log(checkOne, checkTwo);
-    //console.log(name);
-    //console.log(weight)
-
-    /*if (!causeExist && !effectExist) {
+    if (!causeExist && !effectExist) {
       postData();
     } else {
-      const alreadyPosted = false;
-      newProduct.edges.map((n) => {
-        //console.log(n);
-        const newCause = hashmap.get(n.source);
-        const newEffect = hashmap.get(n.target);
-        //console.log(newCause);
-        //console.log(newEffect);
-
-        if (newCause == name && newEffect == value) {
-          alert("Duplicationsa are not allowed");
-        } else if(!alreadyPosted){
-          postData();
-          alreadyPosted = true;
-        }
-      });
-    }*/
-
-    if(!causeExist && !effectExist){
-      postData();
-    }else{
-      alert('Duplications are not allowed')
+      alert("Duplications are not allowed");
     }
   }
 
@@ -150,18 +115,16 @@ function NodeAdd() {
             weight: weight,
           },
         ],
-        "associateId": Number(locationdata.model.id),
+        associateId: Number(locationdata.model.id),
       })
-      .then((res) => console.log("Posting data", res))
-      
-      //console.log('here')
-      setIsSending(false)
+
+    //console.log('here')
+    setIsSending(false);
   }
 
   function getValue(products) {
     //console.log(products[1].nodes);
     var hashmap = new Map();
-
 
     //console.log(nodes);
 

@@ -13,7 +13,6 @@ function Screen4() {
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
       setConnections(response.data);
-      //console.log("here");
     });
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
@@ -63,88 +62,47 @@ function Screen4() {
     );
   }
 
+  //printing all the connections to the screen
+  function getValue(connections) {
+    var hashmap = new Map();
 
-//printing all the connections to the screen
-function getValue(connections) {
-  //console.log(connections);
-  var hashmap = new Map();
+    connections.map((c) => {
+      const stateId = Number(c.associateId);
 
-
-  //console.log(connections)
-
-  connections.map((c) => {
-    console.log(c);
-    const stateId = Number(c.associateId)
-    //console.log(c.associateId, stateId)
-
-    if(c.associateId == stateId){
-      for(let i = 0;i < c.nodes.length;i++){
-        let currentObject = c.nodes[i];
-        hashmap.set(currentObject.id,currentObject.name);
+      if (c.associateId == stateId) {
+        for (let i = 0; i < c.nodes.length; i++) {
+          let currentObject = c.nodes[i];
+          hashmap.set(currentObject.id, currentObject.name);
+        }
       }
-    }
+    });
 
+    //printing each row of nodes to the screen
+    const arr = connections.map((c) => {
+      console.log(connections);
+      const stateId = Number(c.associateId);
 
+      if (c.associateId == stateId) {
+        for (let i = 0; i < c.edges.length; i++) {
+          let currentObject = c.edges[i];
+          console.log(currentObject.source);
 
+          return (
+            <tr>
+              <td>1</td>
+              <td>{hashmap.get(currentObject.source)}</td>
+              <td>{hashmap.get(currentObject.target)}</td>
+              <td>{currentObject.weight}</td>
+            </tr>
+          );
+        }
+      }
+    });
 
+    console.log(hashmap);
 
-
-
-
-    
-    /*if(c.associateId == state.id){
-      
-    }*/
-  })
-
-
-  const arr = connections.map((c) => {
-    console.log(connections);
-    const stateId = Number(c.associateId)
-
-    if(c.associateId == stateId){
-    for(let i = 0;i < c.edges.length;i++){
-      let currentObject = c.edges[i];
-      console.log(currentObject.source)
-
-      return (<tr>
-        
-      <td>1</td>
-      <td>{hashmap.get(currentObject.source)}</td>
-      <td>{hashmap.get(currentObject.target)}</td>
-      <td>{currentObject.weight}</td>
-    </tr>)
-    }
+    return arr;
   }
-  })
-
-  console.log(hashmap)
-
-  /*
-  const newConnections = connections[0].edges;
-  const nodes = connections[0].nodes;
-  //console.log(nodes);
-
-  const arr1 = nodes.map((connection) => {
-
-    hashmap.set(connection.id, connection.name);
-  });
-  data = hashmap;
-
-  const arr = newConnections.map((connection) => {
-    return (
-      <tr>
-        
-        <td>1</td>
-        <td>{hashmap.get(connection.source)}</td>
-        <td>{hashmap.get(connection.target)}</td>
-        <td>{connection.weight}</td>
-      </tr>
-    );
-  });*/
-
-  return arr;
-}
 }
 
 export default Screen4;

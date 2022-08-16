@@ -12,43 +12,36 @@ const Record = () => {
   //this is the request which will be sent to the API to post all requests
   const postData = (e) => {
     e.preventDefault();
-    //console.log(e);
-    axios.post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/screen1", {
-      name: name,
-      value: value,
-    }).then((res) => {
-      alert(`Succesfully added model ${name} with value ${value}`)
-    })
-
-
-    
-    //window.location.replace("/");
+    axios
+      .post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/screen1", {
+        name: name,
+        value: value,
+      })
+      .then((res) => {
+        alert(`Succesfully added model ${name} with value ${value}`);
+      });
   };
 
+  //If there are duplicats user will be promoted about it, other wise information will be posted.
   const postDataCheck = (e) => {
     e.preventDefault();
     let hasDuplicates = false;
 
-    
-    state.map(s => {
-      if(s.name == name){
+    state.map((s) => {
+      if (s.name == name) {
         hasDuplicates = true;
       }
-    })
+    });
 
-    if(!hasDuplicates){
-
-      postData(e)
-    }else{
-      alert("Duplicates are not allowed")
+    if (!hasDuplicates) {
+      postData(e);
+    } else {
+      alert("Duplicates are not allowed");
     }
-
-  }
+  };
 
   return (
-    
     <form>
- 
       <label>Name</label>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
       <hr />
@@ -66,4 +59,3 @@ const Record = () => {
 };
 
 export default Record;
-
