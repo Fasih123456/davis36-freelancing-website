@@ -13,7 +13,6 @@ function NodeAdd() {
   const [weight, setWeight] = useState("");
   const [isSending, setIsSending] = useState(false);
 
-
   const location = useLocation();
   const state = location.state;
   //console.log(locationdata)
@@ -32,32 +31,32 @@ function NodeAdd() {
 
   return (
     <React.Fragment>
-    <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
-    <Link
-      to={{
-        pathname: "/",
-        state: state,
-      }}
-    >
-      <FontAwesomeIcon icon="fa-solid fa-backward-step" />
-    </Link>
-      Add New Model
-    </h3>
+      <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
+        <Link
+          to={{
+            pathname: "/",
+            state: state,
+          }}
+        >
+          <FontAwesomeIcon icon="fa-solid fa-backward-step" />
+        </Link>
+        Add New Model
+      </h3>
 
-    <form>
-      <label>Cause</label>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+      <form>
+        <label>Cause</label>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
-      <hr />
-      <label>Effect</label>
-      <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
-      <hr />
-      <label>Weight</label>
-      <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} />
-      <hr />
+        <hr />
+        <label>Effect</label>
+        <input type="text" value={value} onChange={(e) => setValue(e.target.value)} />
+        <hr />
+        <label>Weight</label>
+        <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} />
+        <hr />
 
-      <button onClick={postDataCheck}>Submit</button>
-    </form>
+        <button onClick={postDataCheck}>Submit</button>
+      </form>
     </React.Fragment>
   );
 
@@ -111,27 +110,26 @@ function NodeAdd() {
     const id1 = Math.random() * 100000;
     const id2 = Math.random() * 100000;
 
-    axios
-      .post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
-        nodes: [
-          {
-            id: id1,
-            name: name,
-          },
-          {
-            id: id2,
-            name: value,
-          },
-        ],
-        edges: [
-          {
-            source: id1,
-            target: id2,
-            weight: weight,
-          },
-        ],
-        associateId: Number(state.model.id),
-      })
+    axios.post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
+      nodes: [
+        {
+          id: id1,
+          name: name,
+        },
+        {
+          id: id2,
+          name: value,
+        },
+      ],
+      edges: [
+        {
+          source: id1,
+          target: id2,
+          weight: weight,
+        },
+      ],
+      associateId: Number(state.model.id),
+    });
 
     //console.log('here')
     setIsSending(false);

@@ -25,19 +25,18 @@ function Screen3() {
     return (
       <React.Fragment>
         <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
-        <Link
-          to={{
-            pathname: "/",
-            state: state,
-          }}
-        >
-          <FontAwesomeIcon icon="fa-solid fa-backward-step" />
-        </Link>
+          <Link
+            to={{
+              pathname: "/",
+              state: state,
+            }}
+          >
+            <FontAwesomeIcon icon="fa-solid fa-backward-step" />
+          </Link>
           {state[2]} : Runner
         </h3>
 
-
-          {getValue(connections)}
+        {getValue(connections)}
 
         <Link
           to={{

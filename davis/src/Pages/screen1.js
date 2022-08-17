@@ -5,7 +5,6 @@ import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 import { Link } from "react-router-dom";
 
-var data = [];
 function Screen1() {
   const [model, newModel] = useState(null);
 
@@ -21,7 +20,6 @@ function Screen1() {
   if (model) {
     return (
       <React.Fragment>
-        
         <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>Models </h3>
         <table class="table">
           <thead class="thead-dark">
@@ -74,7 +72,9 @@ function Screen1() {
             >
               <button class="no-top-margin">View</button>
             </Link>
-            <button class="no-top-margin" onClick={() => deleteModel(model.id)}>Delete</button>
+            <button class="no-top-margin" onClick={() => deleteModel(model.id)}>
+              Delete
+            </button>
           </td>
         </tr>
       );

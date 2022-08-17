@@ -10,7 +10,7 @@ function Screen4() {
   const [connections, setConnections] = useState("");
   const location = useLocation();
   const state = location.state;
-  console.log(state)
+  console.log(state);
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -21,15 +21,15 @@ function Screen4() {
   if (connections) {
     return (
       <React.Fragment>
-                <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
-        <Link
-          to={{
-            pathname: "/",
-            state: state,
-          }}
-        >
-          <FontAwesomeIcon icon="fa-solid fa-backward-step" />
-        </Link>
+        <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
+          <Link
+            to={{
+              pathname: "/",
+              state: state,
+            }}
+          >
+            <FontAwesomeIcon icon="fa-solid fa-backward-step" />
+          </Link>
           {state[2]} : Results
         </h3>
 

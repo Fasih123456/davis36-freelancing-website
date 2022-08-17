@@ -15,7 +15,7 @@ const Screen2 = (props) => {
   const [connections, setConnections] = useState("");
 
   const stateId = Number(state.model.id);
-  const screen3Data = [stateId, connections,state.model.name];
+  const screen3Data = [stateId, connections, state.model.name];
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -30,15 +30,15 @@ const Screen2 = (props) => {
     return (
       <React.Fragment>
         <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
-        <Link
-          to={{
-            pathname: "/",
-            state: state,
-          }}
-        >
-          <FontAwesomeIcon icon="fa-solid fa-backward-step" />
-        </Link>
-         {state.model.name} : Connections
+          <Link
+            to={{
+              pathname: "/",
+              state: state,
+            }}
+          >
+            <FontAwesomeIcon icon="fa-solid fa-backward-step" />
+          </Link>
+          {state.model.name} : Connections
         </h3>
 
         <table class="table">

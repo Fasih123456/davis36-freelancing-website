@@ -44,7 +44,7 @@ const Record = () => {
 
   return (
     <React.Fragment>
-                    <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
+      <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
         <Link
           to={{
             pathname: "/",
@@ -53,23 +53,23 @@ const Record = () => {
         >
           <FontAwesomeIcon icon="fa-solid fa-backward-step" />
         </Link>
-          Add New Model
-        </h3>
+        Add New Model
+      </h3>
 
-    <form>
-      <label>Name</label>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-      <hr />
-      <label>Value</label>
+      <form>
+        <label>Name</label>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+        <hr />
+        <label>Value</label>
 
-      <select name="value" id="value" value={value} onChange={(e) => setValue(e.target.value)}>
-        <option value="High">High</option>
-        <option value="Medium">Medium</option>
-        <option value="Low">Low</option>
-      </select>
-      <hr />
-      <button onClick={postDataCheck}>Submit</button>
-    </form>
+        <select name="value" id="value" value={value} onChange={(e) => setValue(e.target.value)}>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+        <hr />
+        <button onClick={postDataCheck}>Submit</button>
+      </form>
     </React.Fragment>
   );
 };
