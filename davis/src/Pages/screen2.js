@@ -15,7 +15,7 @@ const Screen2 = (props) => {
   const [connections, setConnections] = useState("");
 
   const stateId = Number(state.model.id);
-  const screen3Data = [stateId, connections, state.model.name];
+  const screen3Data = [stateId, connections];
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -63,7 +63,7 @@ const Screen2 = (props) => {
         <Link
           to={{
             pathname: "/screen3",
-            state: screen3Data,
+            state: [stateId, connections, state.model.name],
           }}
         >
           <button>Run Values</button>
