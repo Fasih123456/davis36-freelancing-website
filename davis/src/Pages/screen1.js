@@ -72,9 +72,9 @@ function Screen1() {
                 state: { model },
               }}
             >
-              <button>View</button>
+              <button class="no-top-margin">View</button>
             </Link>
-            <button onClick={() => deleteModel(model.id)}>Delete</button>
+            <button class="no-top-margin" onClick={() => deleteModel(model.id)}>Delete</button>
           </td>
         </tr>
       );

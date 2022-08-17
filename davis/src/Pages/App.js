@@ -7,6 +7,7 @@ import NodeAdd from './nodeadd';
 import Screen3 from './screen3';
 import Screen4 from './screen4';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import "../Css/index.css"
 
 //This page handles displaying all the pages on the correct link
 const App = () => {

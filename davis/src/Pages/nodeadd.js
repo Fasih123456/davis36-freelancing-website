@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 var hashmap = [];
 
 //This page handles adding nodes to each model
@@ -13,8 +13,9 @@ function NodeAdd() {
   const [weight, setWeight] = useState("");
   const [isSending, setIsSending] = useState(false);
 
+
   const location = useLocation();
-  const locationdata = location.state;
+  const state = location.state;
   //console.log(locationdata)
 
   //This function gets relevent information from API, it fetchs data everytime infomartion in API changes
@@ -30,6 +31,19 @@ function NodeAdd() {
   );
 
   return (
+    <React.Fragment>
+    <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
+    <Link
+      to={{
+        pathname: "/",
+        state: state,
+      }}
+    >
+      <FontAwesomeIcon icon="fa-solid fa-backward-step" />
+    </Link>
+      Add New Model
+    </h3>
+
     <form>
       <label>Cause</label>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
@@ -44,6 +58,7 @@ function NodeAdd() {
 
       <button onClick={postDataCheck}>Submit</button>
     </form>
+    </React.Fragment>
   );
 
   function postDataCheck(event) {
@@ -61,7 +76,7 @@ function NodeAdd() {
     //making sure there is no duplications
     if (product.length > 0) {
       newProduct.map((n) => {
-        if (locationdata.model.id == n.associateId) {
+        if (state.model.id == n.associateId) {
           //console.log(n.nodes)
           for (let i = 0; i < n.nodes.length; i++) {
             if (causeExist && effectExist) {
@@ -115,7 +130,7 @@ function NodeAdd() {
             weight: weight,
           },
         ],
-        associateId: Number(locationdata.model.id),
+        associateId: Number(state.model.id),
       })
 
     //console.log('here')

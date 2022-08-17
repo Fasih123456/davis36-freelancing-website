@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Redirect } from "react-router";
 import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
 
 const Record = () => {
   const [name, setName] = useState("");
@@ -41,6 +43,19 @@ const Record = () => {
   };
 
   return (
+    <React.Fragment>
+                    <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
+        <Link
+          to={{
+            pathname: "/",
+            state: state,
+          }}
+        >
+          <FontAwesomeIcon icon="fa-solid fa-backward-step" />
+        </Link>
+          Add New Model
+        </h3>
+
     <form>
       <label>Name</label>
       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
@@ -55,6 +70,7 @@ const Record = () => {
       <hr />
       <button onClick={postDataCheck}>Submit</button>
     </form>
+    </React.Fragment>
   );
 };
 

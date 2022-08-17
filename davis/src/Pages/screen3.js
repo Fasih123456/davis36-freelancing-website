@@ -3,6 +3,7 @@ import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
 import Slider from "@mui/material/Slider";
 import Card from "react-bootstrap/Card";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation } from "react-router-dom";
 
 var changedValue = []; //all values which are changed will be pushed to this array and later on posted to the API
@@ -11,6 +12,7 @@ function Screen3() {
   const [connections, setConnections] = useState(null);
   const location = useLocation();
   const state = location.state;
+  //console.log(state);
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -23,20 +25,20 @@ function Screen3() {
     return (
       <React.Fragment>
         <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
-          M1: Runner{" "}
+        <Link
+          to={{
+            pathname: "/",
+            state: state,
+          }}
+        >
+          <FontAwesomeIcon icon="fa-solid fa-backward-step" />
+        </Link>
+          {state[2]} : Runner
         </h3>
 
-        <table class="table">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Cause</th>
-              <th scope="col">Effect</th>
-              <th scope="col">Weight</th>
-            </tr>
-          </thead>
+
           {getValue(connections)}
-        </table>
+
         <Link
           to={{
             pathname: "/screen4",

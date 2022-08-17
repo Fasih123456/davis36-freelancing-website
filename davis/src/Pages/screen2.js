@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios, { Axios } from "axios";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 var data = [];
 var screen3Data = [];
 var isPushed = false;
@@ -9,17 +10,16 @@ var isPushed = false;
 const Screen2 = (props) => {
   const location = useLocation();
   const state = location.state;
-  //console.log(state)
+  //console.log(state.model.name)
 
   const [connections, setConnections] = useState("");
 
   const stateId = Number(state.model.id);
-  const screen3Data = [stateId, connections];
+  const screen3Data = [stateId, connections,state.model.name];
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
       setConnections(response.data);
-      //console.log("here");
     });
 
     //data = product;
@@ -30,7 +30,15 @@ const Screen2 = (props) => {
     return (
       <React.Fragment>
         <h3 style={{ backgroundColor: "#212529", color: "white", marginBottom: "0px" }}>
-          M1: Runner{" "}
+        <Link
+          to={{
+            pathname: "/",
+            state: state,
+          }}
+        >
+          <FontAwesomeIcon icon="fa-solid fa-backward-step" />
+        </Link>
+         {state.model.name} : Connections
         </h3>
 
         <table class="table">
