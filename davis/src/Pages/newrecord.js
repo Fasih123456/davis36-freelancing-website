@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Record = () => {
   const [name, setName] = useState("");
-  const [value, setValue] = useState(false);
+  const [value, setValue] = useState("high");
   const location = useLocation();
   const state = location.state;
 
@@ -20,6 +20,7 @@ const Record = () => {
         value: value,
       })
       .then((res) => {
+        state[state.length -1] = res.data;
         alert(`Succesfully added model ${name} with value ${value}`);
       });
   };
@@ -29,7 +30,9 @@ const Record = () => {
     e.preventDefault();
     let hasDuplicates = false;
 
+
     state.map((s) => {
+      
       if (s.name == name) {
         hasDuplicates = true;
       }
@@ -37,6 +40,7 @@ const Record = () => {
 
     if (!hasDuplicates) {
       postData(e);
+
     } else {
       alert("Duplicates are not allowed");
     }
@@ -62,16 +66,21 @@ const Record = () => {
         <hr />
         <label>Value</label>
 
-        <select name="value" id="value" value={value} onChange={(e) => setValue(e.target.value)}>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
+        <select name="value" id="value" value={value} 
+        onChange={handleChange} >
+          <option   value="High">High</option>
+          <option  value="Medium">Medium</option>
+          <option  value="Low">Low</option>
         </select>
         <hr />
         <button onClick={postDataCheck}>Submit</button>
       </form>
     </React.Fragment>
   );
+
+  function handleChange(e){
+    setValue(e.target.value)
+  }
 };
 
 export default Record;
