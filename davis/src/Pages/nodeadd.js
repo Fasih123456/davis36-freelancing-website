@@ -62,8 +62,8 @@ function NodeAdd() {
       <div className="message">
         {showGreenText && (
           <p className="green-text">
-            `Succesfully added connection with casuse <b>{name}</b>, effect <b>{value}</b> and
-            weight <b>{weight}</b>`
+            Succesfully added connection with casuse <b>{name}</b>, effect <b>{value}</b> and
+            weight <b>{weight}</b>
           </p>
         )}
 

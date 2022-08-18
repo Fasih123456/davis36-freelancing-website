@@ -92,7 +92,7 @@ const Record = () => {
 
       <div className="message">
       {showGreenText && (
-          <p className="green-text">`Succesfully added model <b>{name}</b> with value <b>{value}</b>`</p>
+          <p className="green-text">Succesfully added model <b>{name}</b> with value <b>{value}</b></p>
         )}
 
         {showRedText && (

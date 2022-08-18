@@ -31,3 +31,16 @@ button{
 #root{
     margin-bottom: 40px;
 }
+.green-text{
+    font-size: 18px;
+    color: green;
+}
+
+.red-text{
+    font-size: 18px;
+    color: red;
+}
+
+.message{
+    padding-top: 10px;
+}
