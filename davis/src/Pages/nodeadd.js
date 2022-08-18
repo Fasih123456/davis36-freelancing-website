@@ -7,7 +7,7 @@ var hashmap = [];
 
 //This page handles adding nodes to each model
 function NodeAdd() {
-  const [product, setProduct] = useState();
+  const [connections, setConnections] = useState();
   const [name, setName] = useState("");
   const [value, setValue] = useState("");
   const [weight, setWeight] = useState("");
@@ -23,7 +23,7 @@ function NodeAdd() {
   useEffect(
     () => {
       axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
-        setProduct(response.data);
+        setConnections(response.data);
         //console.log("here");
       });
     },
@@ -60,13 +60,14 @@ function NodeAdd() {
         <button onClick={postDataCheck}>Submit</button>
       </form>
       <div className="message">
-      {showGreenText && (
-          <p className="green-text">`Succesfully added connection with casuse <b>{name}</b>, effect <b>{value}</b> and weight <b>{weight}</b>`</p>
+        {showGreenText && (
+          <p className="green-text">
+            `Succesfully added connection with casuse <b>{name}</b>, effect <b>{value}</b> and
+            weight <b>{weight}</b>`
+          </p>
         )}
 
-        {showRedText && (
-          <p className="red-text">Duplications are not allowed</p>
-        )}
+        {showRedText && <p className="red-text">Duplications are not allowed</p>}
       </div>
     </React.Fragment>
   );
@@ -78,41 +79,35 @@ function NodeAdd() {
     let causeExist = false; //this boolean checks weather they cause value exists in the API already or not
     let effectExist = false; //this boolean checks weather they effect value exists in the API already or not
     let duplicatesFound = false;
-  
-    hashmap = getValue(product);
 
-    let newProduct = product;
+    hashmap = getValue(connections);
+
+    let newProduct = connections;
     //console.log(newProduct)
 
     //making sure there is no duplications
-    if (product.length > 0) {
+    if (connections.length > 0) {
       newProduct.map((n) => {
         if (state.model.id == n.associateId) {
-          console.log(n.nodes)
+          console.log(n.nodes);
           for (let i = 0; i < n.nodes.length; i++) {
-            
-            
-
-
-            
             let currentObject = n.nodes[i];
-            console.log(currentObject, name, value)
+            console.log(currentObject, name, value);
             if (currentObject.name == name) {
-              console.log('here1')
+              console.log("here1");
               causeExist = true;
             } else if (currentObject.name == value) {
-              console.log('here2')
+              console.log("here2");
               effectExist = true;
             }
 
             if (causeExist && effectExist) {
               duplicatesFound = true;
-              
+
               break;
-            } 
+            }
 
-            console.log(duplicatesFound)
-
+            console.log(duplicatesFound);
           }
         }
       });
@@ -152,7 +147,7 @@ function NodeAdd() {
         },
       ],
       associateId: Number(state.model.id),
-    })
+    });
 
     //console.log('here')
     setIsSending(false);
