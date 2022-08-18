@@ -10,7 +10,6 @@ function Screen4() {
   const [connections, setConnections] = useState("");
   const location = useLocation();
   const state = location.state;
-  console.log(state);
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
@@ -80,10 +79,11 @@ function Screen4() {
   function getValue(connections) {
     var hashmap = new Map();
 
+
     connections.map((c) => {
       const stateId = Number(c.associateId);
 
-      if (c.associateId == stateId) {
+      if (c.associateId == state[0]) {
         for (let i = 0; i < c.nodes.length; i++) {
           let currentObject = c.nodes[i];
           hashmap.set(currentObject.id, currentObject.name);
@@ -93,13 +93,13 @@ function Screen4() {
 
     //printing each row of nodes to the screen
     const arr = connections.map((c) => {
-      console.log(connections);
+  
       const stateId = Number(c.associateId);
 
-      if (c.associateId == stateId) {
+      if (c.associateId == state[0]) {
         for (let i = 0; i < c.edges.length; i++) {
           let currentObject = c.edges[i];
-          console.log(currentObject.source);
+ 
 
           return (
             <tr>
@@ -113,7 +113,6 @@ function Screen4() {
       }
     });
 
-    console.log(hashmap);
 
     return arr;
   }

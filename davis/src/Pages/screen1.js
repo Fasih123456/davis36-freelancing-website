@@ -10,7 +10,6 @@ function Screen1() {
 
   //This function gets relevent information from API, it fetchs data everytime infomartion in API changes
   useEffect(() => {
-    //console.log("here");
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/screen1").then((response) => {
       newModel(response.data);
     });

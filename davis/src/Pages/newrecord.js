@@ -26,7 +26,7 @@ const Record = () => {
         state[state.length -1] = res.data;
         setGreenText(true)
         setRedText(false)
-        console.log(showGreenText, showRedText);
+
       });
   };
 
@@ -49,7 +49,7 @@ const Record = () => {
     } else {
       setGreenText(false)
       setRedText(true)
-      console.log(showGreenText, showRedText);
+
     }
   };
 

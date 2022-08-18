@@ -7,17 +7,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useLocation } from "react-router-dom";
 
 var changedValue = []; //all values which are changed will be pushed to this array and later on posted to the API
+let responseStatus;
 
 function Screen3() {
   const [connections, setConnections] = useState(null);
   const location = useLocation();
   const state = location.state;
-  console.log(state);
 
   useEffect(() => {
     axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
       setConnections(response.data);
-      console.log("here");
     });
   }, ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"]);
 
@@ -61,33 +60,35 @@ function Screen3() {
 
     for (let i = 0; i < changedValue.length; i++) {
       let currentObject = changedValue[i];
-      console.log(changedValue)
-      console.log(currentObject)
 
       axios
         .delete(`https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product/${currentObject[1].id}`)
-        .then(
-          axios.post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
-            nodes: [
-              {
-                id: currentObject[1].nodes[0].id,
-                name: currentObject[1].nodes[0].name,
-              },
-              {
-                id: currentObject[1].nodes[1].id,
-                name: currentObject[1].nodes[1].name,
-              },
-            ],
-            edges: [
-              {
-                source: currentObject[1].edges[0].source,
-                target: currentObject[1].edges[0].target,
-                weight: currentObject[0],
-              },
-            ],
-            associateId: Number(currentObject[1].associateId),
-          })
-        );
+        .then((response) => postData2(currentObject, response.status));
+    }
+  }
+
+  function postData2(currentObject, value) {
+    if (value == 200) {
+      axios.post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
+        nodes: [
+          {
+            id: currentObject[1].nodes[0].id,
+            name: currentObject[1].nodes[0].name,
+          },
+          {
+            id: currentObject[1].nodes[1].id,
+            name: currentObject[1].nodes[1].name,
+          },
+        ],
+        edges: [
+          {
+            source: currentObject[1].edges[0].source,
+            target: currentObject[1].edges[0].target,
+            weight: currentObject[0],
+          },
+        ],
+        associateId: Number(currentObject[1].associateId),
+      });
     }
   }
 
@@ -96,26 +97,21 @@ function Screen3() {
     let duplicatesFound = false;
     let position;
     let objectToBeDeleted;
-    console.log(changedValue)
-    console.log(connections)
+
     let connectionToBeAdded;
 
-    for(let i = 1;i < connections.length + 1;i++){
-      console.log(connections[i])
-      console.log("break")
+    for (let i = 1; i < connections.length + 1; i++) {
       let currentObject = connections[i - 1];
-      console.log(connections, i, currentObject);
-      if(currentObject.id == id){
+
+      if (currentObject.id == id) {
         connectionToBeAdded = currentObject;
       }
     }
 
-
     if (changedValue.length == 0) {
       changedValue.push([e.target.value, connectionToBeAdded]);
     } else {
-      for (let i = 1; i < changedValue.length+1; i++) {
-        console.log("run")
+      for (let i = 1; i < changedValue.length + 1; i++) {
         let currentObject = changedValue[i - 1];
 
         if (currentObject[1].id == id) {
@@ -126,14 +122,11 @@ function Screen3() {
         }
       }
 
-      
       //if the object has already been updated, then we delete the old entry and add a new entry. If it is not duplicated, then we simply add a new entry.
       if (duplicatesFound) {
-        console.log(changedValue)
         changedValue.splice(position, 1); //delete 1 object at index "position"
-        console.log(changedValue)
+
         changedValue.push([e.target.value, connectionToBeAdded]);
-        console.log(changedValue)
       } else {
         changedValue.push([e.target.value, connectionToBeAdded]);
       }

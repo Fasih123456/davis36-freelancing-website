@@ -10,7 +10,6 @@ var isPushed = false;
 const Screen2 = (props) => {
   const location = useLocation();
   const state = location.state;
-  //console.log(state.model.name)
 
   const [connections, setConnections] = useState("");
 
@@ -94,13 +93,11 @@ const Screen2 = (props) => {
 
     //displaying each row of nodes on the webpage
     const arr = connections.map((c) => {
-      console.log(c.edges);
       const stateId = Number(state.model.id);
       screen3Data.push(stateId);
       if (c.associateId == stateId) {
         for (let i = 0; i < c.edges.length; i++) {
           let currentObject = c.edges[i];
-          console.log(currentObject.source);
 
           return (
             <tr>

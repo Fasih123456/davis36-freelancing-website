@@ -14,17 +14,16 @@ function NodeAdd() {
   const [isSending, setIsSending] = useState(false);
   const [showGreenText, setGreenText] = useState(false);
   const [showRedText, setRedText] = useState(false);
+  const [recentAddition, setRecentAddition] = useState("");
 
   const location = useLocation();
   const state = location.state;
-  //console.log(locationdata)
 
   //This function gets relevent information from API, it fetchs data everytime infomartion in API changes
   useEffect(
     () => {
       axios.get("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product").then((response) => {
         setConnections(response.data);
-        //console.log("here");
       });
     },
     ["https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product"],
@@ -62,8 +61,8 @@ function NodeAdd() {
       <div className="message">
         {showGreenText && (
           <p className="green-text">
-            Succesfully added connection with casuse <b>{name}</b>, effect <b>{value}</b> and
-            weight <b>{weight}</b>
+            Succesfully added connection with casuse <b>{name}</b>, effect <b>{value}</b> and weight{" "}
+            <b>{weight}</b>
           </p>
         )}
 
@@ -83,21 +82,24 @@ function NodeAdd() {
     hashmap = getValue(connections);
 
     let newProduct = connections;
-    //console.log(newProduct)
 
     //making sure there is no duplications
-    if (connections.length > 0) {
+
+    if (recentAddition != "") {
+      if (recentAddition.nodes[0].name == name && recentAddition.nodes[1].name == value) {
+        duplicatesFound = true;
+      }
+    }
+
+    if (connections.length > 0 && duplicatesFound) {
       newProduct.map((n) => {
         if (state.model.id == n.associateId) {
-          console.log(n.nodes);
           for (let i = 0; i < n.nodes.length; i++) {
             let currentObject = n.nodes[i];
-            console.log(currentObject, name, value);
+
             if (currentObject.name == name) {
-              console.log("here1");
               causeExist = true;
             } else if (currentObject.name == value) {
-              console.log("here2");
               effectExist = true;
             }
 
@@ -106,8 +108,6 @@ function NodeAdd() {
 
               break;
             }
-
-            console.log(duplicatesFound);
           }
         }
       });
@@ -128,38 +128,36 @@ function NodeAdd() {
     const id1 = Math.random() * 100000;
     const id2 = Math.random() * 100000;
 
-    axios.post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
-      nodes: [
-        {
-          id: id1,
-          name: name,
-        },
-        {
-          id: id2,
-          name: value,
-        },
-      ],
-      edges: [
-        {
-          source: id1,
-          target: id2,
-          weight: weight,
-        },
-      ],
-      associateId: Number(state.model.id),
-    });
+    axios
+      .post("https://62ea7b1c3a5f1572e87ca9e9.mockapi.io/product", {
+        nodes: [
+          {
+            id: id1,
+            name: name,
+          },
+          {
+            id: id2,
+            name: value,
+          },
+        ],
+        edges: [
+          {
+            source: id1,
+            target: id2,
+            weight: weight,
+          },
+        ],
+        associateId: Number(state.model.id),
+      })
+      .then((response) => {
+        setRecentAddition(response.data);
+      });
 
-    //console.log('here')
     setIsSending(false);
   }
 
   function getValue(products) {
-    //console.log(products[1].nodes);
     var hashmap = new Map();
-
-    //console.log(nodes);
-
-    //console.log(hashmap)
 
     return hashmap;
   }
