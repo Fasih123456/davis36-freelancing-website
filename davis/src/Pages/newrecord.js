@@ -8,8 +8,11 @@ import { Link } from "react-router-dom";
 const Record = () => {
   const [name, setName] = useState("");
   const [value, setValue] = useState("high");
+  const [showGreenText, setGreenText] = useState(false)
+  const [showRedText, setRedText] = useState(false)
   const location = useLocation();
   const state = location.state;
+
 
   //this is the request which will be sent to the API to post all requests
   const postData = (e) => {
@@ -21,7 +24,9 @@ const Record = () => {
       })
       .then((res) => {
         state[state.length -1] = res.data;
-        alert(`Succesfully added model ${name} with value ${value}`);
+        setGreenText(true)
+        setRedText(false)
+        console.log(showGreenText, showRedText);
       });
   };
 
@@ -42,7 +47,9 @@ const Record = () => {
       postData(e);
 
     } else {
-      alert("Duplicates are not allowed");
+      setGreenText(false)
+      setRedText(true)
+      console.log(showGreenText, showRedText);
     }
   };
 
@@ -73,8 +80,25 @@ const Record = () => {
           <option  value="Low">Low</option>
         </select>
         <hr />
+
+
+
+
+
+
+
         <button onClick={postDataCheck}>Submit</button>
       </form>
+
+      <div className="message">
+      {showGreenText && (
+          <p className="green-text">`Succesfully added model <b>{name}</b> with value <b>{value}</b>`</p>
+        )}
+
+        {showRedText && (
+          <p className="red-text">Duplications are not allowed</p>
+        )}
+      </div>
     </React.Fragment>
   );
 

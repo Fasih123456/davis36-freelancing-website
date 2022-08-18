@@ -12,6 +12,8 @@ function NodeAdd() {
   const [value, setValue] = useState("");
   const [weight, setWeight] = useState("");
   const [isSending, setIsSending] = useState(false);
+  const [showGreenText, setGreenText] = useState(false);
+  const [showRedText, setRedText] = useState(false);
 
   const location = useLocation();
   const state = location.state;
@@ -40,7 +42,7 @@ function NodeAdd() {
         >
           <FontAwesomeIcon icon="fa-solid fa-backward-step" />
         </Link>
-        Add New Model
+        Add New Connection
       </h3>
 
       <form>
@@ -57,6 +59,15 @@ function NodeAdd() {
 
         <button onClick={postDataCheck}>Submit</button>
       </form>
+      <div className="message">
+      {showGreenText && (
+          <p className="green-text">`Succesfully added connection with casuse <b>{name}</b>, effect <b>{value}</b> and weight <b>{weight}</b>`</p>
+        )}
+
+        {showRedText && (
+          <p className="red-text">Duplications are not allowed</p>
+        )}
+      </div>
     </React.Fragment>
   );
 
@@ -64,49 +75,61 @@ function NodeAdd() {
     setIsSending(true);
     event.preventDefault();
 
-    var causeExist = false; //this boolean checks weather they cause value exists in the API already or not
-    var effectExist = false; //this boolean checks weather they effect value exists in the API already or not
-
+    let causeExist = false; //this boolean checks weather they cause value exists in the API already or not
+    let effectExist = false; //this boolean checks weather they effect value exists in the API already or not
+    let duplicatesFound = false;
+  
     hashmap = getValue(product);
 
-    var newProduct = product;
+    let newProduct = product;
     //console.log(newProduct)
 
     //making sure there is no duplications
     if (product.length > 0) {
       newProduct.map((n) => {
         if (state.model.id == n.associateId) {
-          //console.log(n.nodes)
+          console.log(n.nodes)
           for (let i = 0; i < n.nodes.length; i++) {
-            if (causeExist && effectExist) {
-              break;
-            } else {
-              causeExist = false;
-              effectExist = false;
-            }
+            
+            
 
+
+            
             let currentObject = n.nodes[i];
-            //console.log(currentObject, name)
+            console.log(currentObject, name, value)
             if (currentObject.name == name) {
+              console.log('here1')
               causeExist = true;
             } else if (currentObject.name == value) {
+              console.log('here2')
               effectExist = true;
             }
+
+            if (causeExist && effectExist) {
+              duplicatesFound = true;
+              
+              break;
+            } 
+
+            console.log(duplicatesFound)
+
           }
         }
       });
     }
 
-    if (!causeExist && !effectExist) {
+    if (!duplicatesFound) {
       postData();
     } else {
-      alert("Duplications are not allowed");
+      setGreenText(false);
+      setRedText(true);
     }
   }
 
   function postData() {
     setIsSending(true);
-    alert("Sucessfully added record");
+    setGreenText(true);
+    setRedText(false);
     const id1 = Math.random() * 100000;
     const id2 = Math.random() * 100000;
 
@@ -129,7 +152,7 @@ function NodeAdd() {
         },
       ],
       associateId: Number(state.model.id),
-    });
+    })
 
     //console.log('here')
     setIsSending(false);
